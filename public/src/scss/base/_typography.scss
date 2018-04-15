@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700');
+@mixin roboto-condensed {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1, h2, h3, h4 {
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+p {
+    @include roboto-condensed;
+    font-weight: 300;
+    color: white;
+}
+
+a {
+    @include roboto-condensed;
+    color: white;
+}
+
+a:hover {
+    text-decoration: none;
+}

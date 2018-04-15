@@ -1,0 +1,170 @@
+$landing-bg: url(../img/landing-hero.jpg);
+$landing-bg-landscape: url(../img/landing.jpg);
+
+.landing-hero {
+    @include force-full;
+
+    @include orientation((
+            portrait: (
+                background-image: $landing-bg
+            ),
+            landscape: (
+                background-image: $landing-bg-landscape,
+                background-position: center center
+            )
+        ))
+
+    background-image: $landing-bg;
+    background-attachment: fixed;
+    background-size: cover;
+
+    @include breakpoint($breakpoint-med, 'width', (
+            min: (
+                background-position: center center
+            ),
+            max: (
+                background-position: center top
+            )
+        ))
+}
+
+.landing-header {
+    @include container-centered;
+    height: 3rem;
+
+    @include breakpoint($breakpoint-med, 'width', (
+            min: (
+                padding-top: 40px
+            ),
+            max: (
+                padding-top: 20px
+            )
+        ))
+
+    .header-left {
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: left,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%,
+                    text-align: center
+                )
+            ))
+
+        .cragas-logo {
+            height: 3rem;
+
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+
+    .header-right {
+        height: 100%;
+
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: right,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%
+                )
+            ))
+
+        .landing-nav {
+            height: 100%;
+
+            @include respond-to($breakpoint-med - 1, 'max-width') {
+                margin-top: 5%;
+                text-align: center;
+            }
+
+            .nav-item {
+                position: relative;
+                height: 100%;
+                padding: 0.75rem 0;
+                margin: 0 1rem;
+
+                @include breakpoint($breakpoint-med, 'width', (
+                        min: (
+                            font-size: 1.5rem
+                        ),
+                        max: (
+                            font-size: 1.1rem
+                        )
+                    ))
+
+                a {
+                    @include roboto-condensed;
+                    color: white;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    border-bottom: 2px solid white;
+                }
+            }
+        }
+    }
+}
+
+footer {
+    @include container-centered;
+
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+    .short-bio {
+        width: 70%;
+        margin-left: 15%;
+        opacity: 0.8;
+
+        @include respond-to($breakpoint-x-small - 1, 'max-height') {
+            display: none;
+        }
+        @include respond-to($breakpoint-x-small - 1, 'max-width') {
+            font-size: 0.8rem;
+        }
+        @include breakpoint($breakpoint-small, 'width', (
+                min: (
+                    margin-bottom: 100px
+                ),
+                max: (
+                    font-size: 0.8rem,
+                    margin-bottom: 50px
+                )
+            ))
+    }
+
+    .social-icons {
+        height: 30px;
+
+        .icon {
+            height: 100%;
+            margin: 0 1rem;
+            opacity: 0.6;
+
+            -webkit-transition: opacity 0.5s;
+            transition: opacity 0.5s;
+
+            img {
+                max-height: 100%;
+            }
+        }
+
+        .icon:hover {
+            opacity: 1;
+        }
+    }
+}
