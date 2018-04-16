@@ -46,7 +46,7 @@ gulp.task('css', ['images'], function () {
         postCssOpts.push(cssnano);
     }
 
-    return gulp.src(folder.src + 'scss/main.scss')
+    return gulp.src(folder.src + 'scss/*.scss')
         .pipe(sass({
             outputStyle    : 'nested',
             imagePath      : 'img/',
@@ -62,6 +62,7 @@ gulp.task('css', ['images'], function () {
 
 gulp.task('watch', function () {
     browser_sync.init({
+        files: ['public/index.html', 'public/about.html'],
         server: {
             baseDir: './public/',
         },
