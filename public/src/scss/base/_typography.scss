@@ -16,13 +16,13 @@ h1, h2, h3, h4 {
 
 h1 {
 	@include breakpoint($breakpoint-small, 'width', (
-                min: (
-                    font-size: 2rem
-                ),
-                max: (
-                    font-size: 1.5rem
-                )
-            ))
+            min: (
+                font-size: 2rem
+            ),
+            max: (
+                font-size: 1.5rem
+            )
+        ))
 }
 
 p {
