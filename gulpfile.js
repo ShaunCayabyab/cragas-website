@@ -20,7 +20,9 @@ var
         build: 'public/build/',
     };
 
-//image processing
+/**
+ * Image processing task
+ */
 gulp.task('images', function () {
     let out = folder.build + 'img/';
     return gulp.src(folder.src + 'img/**/*')
@@ -30,7 +32,9 @@ gulp.task('images', function () {
         .pipe(gulp.dest(out));
 });
 
-//css processing
+/**
+ * CSS processing task
+ */
 gulp.task('css', ['images'], function () {
 
     var postCssOpts = [
@@ -60,6 +64,9 @@ gulp.task('css', ['images'], function () {
 
 });
 
+/**
+ * Gulp watch listener
+ */
 gulp.task('watch', function () {
     browser_sync.init({
         files: ['public/index.html', 'public/about.html'],

@@ -51,11 +51,11 @@
 @mixin container-centered {
     @include breakpoint($breakpoint-med, 'width', (
             min: (
-                width: 95%,
+                width: 80%,
                 max-width: (1920px * 0.6)
             ),
             max: (
-                width: 95%,
+                width: 100%,
             )
         ))
 

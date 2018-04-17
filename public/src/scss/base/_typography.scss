@@ -3,9 +3,26 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+html {
+	font-size: 90%;
+}
+
 h1, h2, h3, h4 {
+	margin: 0.5rem;
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
+    color: white;
+}
+
+h1 {
+	@include breakpoint($breakpoint-small, 'width', (
+                min: (
+                    font-size: 2rem
+                ),
+                max: (
+                    font-size: 1.5rem
+                )
+            ))
 }
 
 p {

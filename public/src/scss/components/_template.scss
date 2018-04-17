@@ -2,8 +2,8 @@ $template-bg: url(../img/common/bg-texture.jpg);
 
 
 body {
-	background-color: #333;
-	background-image: $template-bg;
+    background-color: #333;
+    background-image: $template-bg;
     background-attachment: fixed;
     background-size: cover;
     background-position: center bottom;
@@ -12,10 +12,102 @@ body {
 }
 
 .content-pane {
-	@include container-centered;
-	min-height: 100vh;
-	background-color: $content-pane-bg;
-	-webkit-box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
-	-moz-box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
-	box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
+    @include container-centered;
+    min-height: 100vh;
+    background-color: $content-pane-bg;
+    -webkit-box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
+    -moz-box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
+    box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
+}
+
+.top-nav {
+    padding: 25px 5% 25px 5%;
+
+
+    .nav-left {
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: left,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%,
+                    text-align: center
+                )
+            ))
+
+        img {
+            @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    max-width: 80%
+                ),
+                max: (
+                    max-width: 80%
+                )
+            ))
+        }
+    }
+
+    .nav-right {
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: right,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%,
+                    text-align: center
+                )
+            ))
+
+        .template-nav {
+            height: 100%;
+
+            @include respond-to($breakpoint-med - 1, 'max-width') {
+                    margin-top: 5%;
+                    text-align: center;
+                }
+
+            .nav-item {
+                position: relative;
+                height: 100%;
+                padding: 0.75rem 0;
+                margin: 0 1rem;
+
+                @include breakpoint($breakpoint-med, 'width', (
+                        min: (
+                            font-size: 1.3rem
+                        ),
+                        max: (
+                            font-size: 1.1rem
+                        )
+                    ))
+
+                a {
+                    @include roboto-condensed;
+                    color: white;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    border-bottom: 2px solid white;
+                }
+            }
+
+            .active > a {
+                border-bottom: 2px solid white;
+            }
+        }
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
+
+.header-title {
+    border-top: 2px solid $header-border;
+    border-bottom: 2px solid $header-border;
 }
