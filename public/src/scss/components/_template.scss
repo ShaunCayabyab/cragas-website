@@ -119,4 +119,45 @@ body {
         width: 100%;
         max-width: (1920px * 0.3);
     }
+
+    .content-left {
+        width: 90%;
+        
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: left,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%,
+                    text-align: center
+                )
+            ))
+
+        img {
+            @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    max-width: 80%
+                ),
+                max: (
+                    max-width: 80%
+                )
+            ))
+        }
+    }
+
+    .content-right {
+        width: 90%;
+
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: right,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%,
+                    text-align: center
+                )
+            ))
+    }
 }

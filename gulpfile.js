@@ -69,7 +69,11 @@ gulp.task('css', ['images'], function () {
  */
 gulp.task('watch', function () {
     browser_sync.init({
-        files: ['public/index.html', 'public/about.html'],
+        files: [
+            'public/index.html',
+            'public/about.html',
+            'public/contact.html',
+        ],
         server: {
             baseDir: './public/',
         },
