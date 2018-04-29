@@ -36,13 +36,28 @@ p, label {
     text-align: left;
     margin-bottom: 25px;
     margin-top: 0;
+    margin-left: 0;
     color: $text-purple;
+}
+
+.content-right {
+    form {
+        text-align: left;
+    }
 }
 
 .form-group {
     @include roboto-condensed;
     margin-bottom: 15px;
-    width: 80%;
+
+    @include breakpoint($breakpoint-med, 'width', (
+            min: (
+                width: 90%
+            ),
+            max: (
+                width: 100%
+            )
+        ))
 
     .form-label {
         margin-bottom: 3px;
@@ -53,21 +68,30 @@ p, label {
 
     input, textarea {
         border: 1px solid $text-purple;
+        border-radius: 3px;
     }
 
     input[name*="name"], input[name*="email"], input[name*="subject"] {
         @include roboto-condensed;
-        padding: 6px 7px;
         min-height: 1rem;
-        width: 60%;
+        padding: 1%;
+
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    width: 80%
+                ),
+                max: (
+                    width: 80%
+                )
+            ))
     }
 
     textarea {
         @include roboto-condensed;
         resize: none;
-        width: 100%;
+        width: 98%;
         height: 10rem;
-        padding: 6px 7px;
+        padding: 1%;
     }
 
     button {

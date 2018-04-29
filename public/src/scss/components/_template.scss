@@ -13,11 +13,9 @@ body {
 
 .content-pane {
     @include container-centered;
-    min-height: 100vh;
+    min-height: 94vh;
     background-color: $content-pane-bg;
-    -webkit-box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
-    -moz-box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
-    box-shadow: 1px 0px 35px -1px rgba(0,0,0,0.85);
+    padding-bottom: 1vh;
 }
 
 .top-nav {
@@ -100,11 +98,12 @@ body {
         }
     }
 
-    .clearfix::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
 .header-title {
@@ -121,7 +120,8 @@ body {
     }
 
     .content-left {
-        width: 90%;
+        width: 100%;
+        margin-bottom: 50px;
         
         @include breakpoint($breakpoint-med, 'width', (
                 min: (
@@ -147,7 +147,7 @@ body {
     }
 
     .content-right {
-        width: 90%;
+        width: 100%;
 
         @include breakpoint($breakpoint-med, 'width', (
                 min: (
@@ -159,5 +159,35 @@ body {
                     text-align: center
                 )
             ))
+    }
+}
+
+.footer {
+    @include container-centered;
+    width: 80%;
+    height: 5vh;
+    text-align: center;
+
+    background-color: $content-pane-bg;
+
+    .social-icons {
+        height: 20px;
+
+        .icon {
+            height: 100%;
+            margin: 0 1rem;
+            opacity: 0.6;
+
+            -webkit-transition: opacity 0.5s;
+            transition: opacity 0.5s;
+
+            img {
+                max-height: 100%;
+            }
+        }
+
+        .icon:hover {
+            opacity: 1;
+        }
     }
 }
