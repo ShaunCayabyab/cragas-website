@@ -48,8 +48,10 @@ $landing-bg-landscape: url(../img/landing.jpg);
                     max-width: 50%
                 ),
                 max: (
-                    max-width: 100%,
-                    text-align: center
+                    max-width: 96%,
+                    text-align: center,
+                    margin-left: auto,
+                    margin-right: auto
                 )
             ))
 
@@ -78,6 +80,7 @@ $landing-bg-landscape: url(../img/landing.jpg);
 
         .landing-nav {
             height: 100%;
+            position: relative;
 
             @include respond-to($breakpoint-med - 1, 'max-width') {
                 margin-top: 5%;
@@ -86,9 +89,9 @@ $landing-bg-landscape: url(../img/landing.jpg);
 
             .nav-item {
                 position: relative;
+                display: inline-block;
                 height: 100%;
-                padding: 0.75rem 0;
-                margin: 0 1rem;
+                margin: 0 0.8rem;
 
                 @include breakpoint($breakpoint-med, 'width', (
                         min: (
@@ -108,6 +111,37 @@ $landing-bg-landscape: url(../img/landing.jpg);
                 a:hover {
                     border-bottom: 2px solid white;
                 }
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                min-width: 160px;
+                margin-left: -16px;
+                background-color: $content-pane-rgba;
+                z-index: 1;
+
+                .dropdown-item {
+                    @include roboto-condensed;
+                    color: white;
+                    text-align: left;
+                    text-decoration: none;
+                    padding: 12px 16px;
+                    display: block;
+
+                    @include breakpoint($breakpoint-med, 'width', (
+                        min: (
+                            font-size: 1.5rem
+                        ),
+                        max: (
+                            font-size: 1.1rem
+                        )
+                    ))
+                }
+            }
+
+            .dropdown:hover .dropdown-content, .dropdown:focus .dropdown-content {
+                display: block;
             }
         }
     }
