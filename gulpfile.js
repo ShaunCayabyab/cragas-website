@@ -12,6 +12,13 @@ var
     smushit      = require('gulp-smushit'),
     browser_sync = require('browser-sync').create(),
 
+    concat       = require('gulp-concat'),
+    deporder     = require('gulp-deporder'),
+    stripdebug   = require('gulp-strip-debug'),
+    uglify       = require('gulp-uglify'),
+
+    dust         = require("gulp-dust"),
+
     // development mode?
     devBuild     = (process.env.NODE_ENV !== 'production'),
 
@@ -31,6 +38,31 @@ gulp.task('images', function () {
         }))
         .pipe(gulp.dest(out));
 });
+
+/**
+ * JS processing task
+ */
+gulp.task('js', function () {
+    let jsbuild = gulp.src(folder.src + 'js/**/*')
+        .pipe(deporder());
+
+    if (!devBuild) {
+        jsbuild = jsbuild
+            .pipe(stripdebug())
+            .pipe(uglify());
+    }
+
+    return jsbuild.pipe(gulp.dest(folder.build + 'js/'));
+});
+
+/**
+ * Dust template precompiling task
+ */
+gulp.task('dust-templates', function () {
+    gulp.src(folder.src + 'views/**/*')
+        .pipe(dust())
+        .pipe(gulp.dest(folder.build + 'views/'));
+})
 
 /**
  * CSS processing task
@@ -79,8 +111,10 @@ gulp.task('watch', function () {
         },
     });
 
+    gulp.watch(folder.src + 'js/**/*', ['js']);
     gulp.watch(folder.src + 'scss/**/*', ['css']);
     gulp.watch(folder.src + 'img/**/*', ['images']);
+    gulp.watch(folder.src + 'views/**/*', ['dust-templates']);
 
     gulp.watch('public/*.html')
         .on('change', browser_sync.reload);

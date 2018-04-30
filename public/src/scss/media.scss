@@ -1,0 +1,64 @@
+@charset "utf-8";
+
+@import 'abstracts/breakpoints';
+@import 'abstracts/mixins';
+
+@import 'base/typography';
+@import 'base/reset';
+
+@import 'components/palette';
+@import 'components/template';
+
+.works-thumbnails {
+    width: 100%;
+    text-align: center;
+
+    .thumbnail {
+        display: inline-block;
+        width: 215px;
+        height: 150px;
+        margin: 0 2%;
+        margin-bottom: 25px;
+        cursor: pointer;
+        opacity: 0.6;
+
+        -webkit-transition: opacity 0.2s;
+        transition: opacity 0.2s;
+
+        .thumbnail-image {
+            width: 100%;
+            height: 60%;
+            background-image: linear-gradient(135deg,#e6846e,#846170);
+
+            img {
+                max-height: 60%;
+                width: auto;
+                margin-top: 10%;
+            }
+        }
+
+        .thumbnail-title {
+            @include roboto-condensed;
+            width: 100%;
+            height: 40%;
+            background-color: white;
+
+            p {
+                color: $content-pane-bg;
+            }
+
+            .title {
+                font-size: 1.2rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+                font-weight: 300;
+            }
+        }
+    }
+
+    .thumbnail:hover {
+        opacity: 1;
+    }
+}
