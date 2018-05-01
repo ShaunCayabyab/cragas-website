@@ -58,6 +58,8 @@ if ($errors = validateContactForm($post_data)) {
 } else {
     $headers = "From: " . $post_data['name'];
 
-    mail($post_data['email'], $post_data['subject'], $post_data['message'], $headers);
-    echo json_encode($post_data);
+    if ($environment === 'PRODUCTION') {
+        mail($post_data['email'], $post_data['subject'], $post_data['message'], $headers);
+    }
+    echo json_encode(['success' => true]);
 }

@@ -8,6 +8,8 @@ $(document).ready(function () {
             'message': $('#form-message').val(),
         }
 
+        $('input, textarea, button').prop('disabled', true);
+
         $.ajax({
             url     : '../php/contact-handler.php',
             method  : 'POST',
@@ -28,11 +30,15 @@ $(document).ready(function () {
 
                 let $remodal = $("[data-remodal-id='errors']").remodal();
                 $remodal.open();
-            } else {
-                console.log(data);
+            } else if ('success' in data) {
+                $('.content-right').fadeOut(100, function () {
+                    $(this).html("<h2>Message Sent!</h2><p>Thank you very much! A reply will be sent shortly.</p>")
+                        .fadeIn(100);
+                });
             }
         })
         .fail(function (data) {
+            $('input, textarea, button').prop('disabled', false);
             $modal_box.html("<h2>Oops! We couldn't send your message.</h2><p>Try sending the message again, or email contact@connor-ragas.com directly.</p>");
 
             let $remodal = $("[data-remodal-id='errors']").remodal();
