@@ -5,7 +5,7 @@ $(document).ready(function () {
         let $modal_box      = $('.remodal');
 
         $modal_box.attr('data-remodal-id', thumbnail_id);
-        $modal_box.html(media_data[data_id]["iframe"]);
+        $modal_box.find('.content').first().html(media_data[data_id]["iframe"]);
 
         let $remodal = $(`[data-remodal-id=${thumbnail_id}]`).remodal();
         $remodal.open();
@@ -13,6 +13,6 @@ $(document).ready(function () {
 
     
     $(document).on('closed', '.remodal', function (e) {
-        $(this).html('');
+        $(this).find('.content').first().html('');
     });
 });
