@@ -10,14 +10,14 @@ var
     cssnano      = require('gulp-cssnano'),
     mqpacker     = require('css-mqpacker'),
     smushit      = require('gulp-smushit'),
-    browser_sync = require('browser-sync').create(),
+    browser_sync = require('browser-sync'),
 
     concat       = require('gulp-concat'),
     deporder     = require('gulp-deporder'),
     stripdebug   = require('gulp-strip-debug'),
     uglify       = require('gulp-uglify'),
 
-    dust         = require("gulp-dust"),
+    php          = require('gulp-connect-php'),
 
     // development mode?
     devBuild     = (process.env.NODE_ENV !== 'production'),
@@ -84,25 +84,39 @@ gulp.task('css', ['images'], function () {
         .pipe(cssnano())
         .pipe(gulp.dest(folder.build + 'css/'))
         .pipe(browser_sync.stream());
+});
 
+/**
+ * PHP server task
+ */
+gulp.task('php', function () {
+    php.server({
+        base     : 'public',
+        port     : 8010,
+        keepalive: true,
+    });
+});
+
+/**
+ * BrowserSync task
+ */
+gulp.task('browser-sync', ['php'], function () {
+    browser_sync({
+        proxy : '127.0.0.1:8010',
+        port  : 8080,
+        open  : true,
+        notify: false,
+    });
 });
 
 /**
  * Gulp watch listener
  */
-gulp.task('watch', function () {
-    browser_sync.init({
-        files: [
-            'public/*.html',
-        ],
-        server: {
-            baseDir: './public/',
-        },
-    });
-
+gulp.task('watch', ['browser-sync'], function () {
     gulp.watch(folder.src + 'js/**/*', ['js']);
     gulp.watch(folder.src + 'scss/**/*', ['css']);
     gulp.watch(folder.src + 'img/**/*', ['images']);
+    gulp.watch(['public/php/*.php'], browser_sync.reload);
 
     gulp.watch('public/*.html')
         .on('change', browser_sync.reload);

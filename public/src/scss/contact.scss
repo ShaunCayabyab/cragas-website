@@ -112,3 +112,15 @@ p, label {
         background-color: $text-purple-click;
     }
 }
+
+.remodal {
+    @include roboto-condensed;
+
+    ul {
+        list-style-type: initial;
+    }
+
+    h2, p {
+        color: black;
+    }
+}
