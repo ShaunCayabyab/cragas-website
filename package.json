@@ -8,10 +8,7 @@
   },
   "author": "Shaun Cayabyab",
   "license": "ISC",
-  "dependencies": {
-    "dustjs-linkedin": "^2.7.5",
-    "remodal": "^1.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.23.7",
     "css-mqpacker": "^6.0.2",
