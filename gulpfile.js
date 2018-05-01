@@ -56,15 +56,6 @@ gulp.task('js', function () {
 });
 
 /**
- * Dust template precompiling task
- */
-gulp.task('dust-templates', function () {
-    gulp.src(folder.src + 'views/**/*')
-        .pipe(dust())
-        .pipe(gulp.dest(folder.build + 'views/'));
-})
-
-/**
  * CSS processing task
  */
 gulp.task('css', ['images'], function () {
@@ -102,9 +93,7 @@ gulp.task('css', ['images'], function () {
 gulp.task('watch', function () {
     browser_sync.init({
         files: [
-            'public/index.html',
-            'public/about.html',
-            'public/contact.html',
+            'public/*.html',
         ],
         server: {
             baseDir: './public/',
@@ -114,7 +103,6 @@ gulp.task('watch', function () {
     gulp.watch(folder.src + 'js/**/*', ['js']);
     gulp.watch(folder.src + 'scss/**/*', ['css']);
     gulp.watch(folder.src + 'img/**/*', ['images']);
-    gulp.watch(folder.src + 'views/**/*', ['dust-templates']);
 
     gulp.watch('public/*.html')
         .on('change', browser_sync.reload);

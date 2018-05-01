@@ -7,6 +7,7 @@ Portfolio site for Connor Ragas
 * NPM (latest)
 * Gulp (latest)
 * BrowserSync (latest)
+* jQuery (3.3.1)
 * Remodal (latest)
 
 ## Installation & Running (front-end development)
