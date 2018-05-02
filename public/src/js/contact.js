@@ -27,6 +27,7 @@ $(document).ready(function () {
                 errors += '</ul>';
 
                 $modal_box.html(`<h2>There was a problem sending your message:</h2>${errors}`);
+                $('input, textarea, button').prop('disabled', false);
 
                 let $remodal = $("[data-remodal-id='errors']").remodal();
                 $remodal.open();

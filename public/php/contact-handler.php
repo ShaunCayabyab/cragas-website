@@ -10,41 +10,109 @@ require_once('../php/env.php');
  */
 function validateContactForm(array $form_data) {
     $errors     = [];
-    $email_exp  = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
-    $string_exp = "/^[A-Za-z .'-]+$/";
+    $string_exp = "/^[A-Za-z0-9 .'-]*$/";
 
     if (!$form_data['name'] || !$form_data['email'] || !$form_data['subject'] || !$form_data['message']) {
         return ['Please fill in all fields in the form.'];
     }
  
     if (!preg_match($string_exp, $form_data['name'])) {
-        $error_message[] = 'The Name you entered does not appear to be valid.';
+        $errors[] = 'Please submit a Name with only letters, numbers, and spaces.';
     }
     
-    if (!preg_match($email_exp, $form_data['email'])) {
-        $error_message[] = 'The Email Address you entered does not appear to be valid.';
+    if (!filter_var($form_data['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'The Email Address you entered does not appear to be valid.';
     }
 
-    if (!preg_match($string_exp,$form_data['subject']) || (strlen($form_data['subject']) < 2)) {
-        $error_message[] = 'The Subject you entered does not appear to be valid.';
+    if (!preg_match($string_exp, $form_data['subject']) || (strlen($form_data['subject']) < 2)) {
+        $errors[] = 'Please submit a Subject of more than 2 characters with only letters, numbers, and spaces.';
     }
 
     if (strlen($form_data['message']) < 2) {
-        $error_message[] = 'The Message you entered does not appear to be valid';
+        $errors[] = 'Please submit a Message with more than 2 characters.';
     }
 
     return $errors;
 }
 
 /**
- * Formatting the email message
+ * Formatting the email message to send to Sender
  *
- * @param  array $form_data
+ * @param  array  $form_data
+ * @param  string $recipient
  * @return array
  */
-function formatMessage(array $form_data) {
+function formatMessageToSender($form_data, $recipient) {
+    $headers  = "From: " . $recipient . "\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
 
+    $message  = str_replace("\n.", "\n..", $form_data['message']);
+
+    $email    = "Hi " . $form_data['name'] . ", \n \n";
+    $email   .= "Your message has been received - thanks! I will be taking a look at it shortly.\n \n";
+    $email   .= "Message sent: \n \n";
+    $email   .= "---------- \n";
+    $email   .= $message . "\n";
+    $email   .= "---------- \n \n";
+    $email   .= "-Connor Ragas";
+
+
+    return [
+        'headers'    => $headers,
+        'sender'     => $form_data['email'],
+        'subject'    => 'Message sent: ' . $form_data['subject'],
+        'message'    => $email,
+    ];
 }
+
+/**
+ * Formatting the email message to send to Recipient
+ *
+ * @param array  $form_data
+ */
+function formatMessageToRecipient($form_data) {
+    $headers  = "MIME-Version: 1.0\r\n";
+
+    $message  = str_replace("\n.", "\n..", $form_data['message']);
+
+    $email    = "New message from " . $form_data['name'] . "(via connor-ragas.com): \n\n";
+    $email   .= "---------- \n";
+    $email   .= $message . "\n";
+
+    return [
+        'headers'    => $headers,
+        'recipient'  => $recipient,
+        'subject'    => 'New Contact Message: ' . $form_data['subject'],
+        'message'    => $email,
+    ];
+}
+
+/**
+ * Sending the mail to Recipient and Sender
+ *
+ * @param array  $form_data
+ * @param string $sender
+ * @param string $recipient
+ */
+function sendMail($sender, $recipient) {
+    mail(
+            $sender['sender'],
+            $sender['subject'],
+            $sender['message'],
+            $sender['headers']
+        );
+
+    mail(
+            $recipient['recipient'],
+            $recipient['subject'],
+            $recipient['message'],
+            $recipient['headers']
+        );
+}
+
+/**
+ * Running it all for the AJAX call
+ */
 
 $post_data = [
     'name'    => $_POST['name'],
@@ -53,13 +121,17 @@ $post_data = [
     'message' => $_POST['message'],
 ];
 
-if ($errors = validateContactForm($post_data)) {
+$errors = validateContactForm($post_data);
+
+if ($errors) {
     echo json_encode(['errors' => $errors]);
 } else {
-    $headers = "From: " . $post_data['name'];
+    $email_to_sender = formatMessageToSender($post_data, $from_email);
+    $email_to_recipient = formatMessageToRecipient($post_data);
 
     if ($environment === 'PRODUCTION') {
-        mail($post_data['email'], $post_data['subject'], $post_data['message'], $headers);
+        sendMail($email_to_sender, $email_to_recipient);
     }
+
     echo json_encode(['success' => true]);
 }
