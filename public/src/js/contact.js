@@ -11,7 +11,7 @@ $(document).ready(function () {
         $('input, textarea, button').prop('disabled', true);
 
         $.ajax({
-            url     : '../php/contact-handler.php',
+            url     : './php/contact-handler.php',
             method  : 'POST',
             dataType: 'json',
             data    : post_data,
@@ -36,18 +36,24 @@ $(document).ready(function () {
                     $(this).html("<h2>Message Sent!</h2><p>Thank you very much! A reply will be sent shortly.</p>")
                         .fadeIn(100);
                 });
+            } else if ('fail' in data) {
+                failMessage($modal_box);
             }
         })
         .fail(function (data) {
-            $('input, textarea, button').prop('disabled', false);
-            $modal_box.html("<h2>Oops! We couldn't send your message.</h2><p>Try sending the message again, or email contact@connor-ragas.com directly.</p>");
-
-            let $remodal = $("[data-remodal-id='errors']").remodal();
-            $remodal.open();
+            failMessage($modal_box);
         });
     });
 
     $(document).on('closed', '.remodal', function (e) {
         $(this).html('');
     });
+
+    function failMessage($modal_box) {
+        $('input, textarea, button').prop('disabled', false);
+        $modal_box.html("<h2>Oops! We couldn't send your message.</h2><p>Try sending the message again, or email contact@connor-ragas.com directly.</p>");
+
+        let $remodal = $("[data-remodal-id='errors']").remodal();
+        $remodal.open();
+    }
 });

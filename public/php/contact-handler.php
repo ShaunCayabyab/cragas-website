@@ -1,6 +1,10 @@
 <?php
 
-require_once('../php/env.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../../vendor/autoload.php';
+require '../php/env.php';
 
 /**
  * Validating the contact form data
@@ -39,12 +43,10 @@ function validateContactForm(array $form_data) {
  * Formatting the email message to send to Sender
  *
  * @param  array  $form_data
- * @param  string $recipient
  * @return array
  */
-function formatMessageToSender($form_data, $recipient) {
-    $headers  = "From: " . $recipient . "\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
+function formatMessageToSender($form_data) {
+    $headers  = "MIME-Version: 1.0\r\n";
 
     $message  = str_replace("\n.", "\n..", $form_data['message']);
 
@@ -68,9 +70,10 @@ function formatMessageToSender($form_data, $recipient) {
 /**
  * Formatting the email message to send to Recipient
  *
- * @param array  $form_data
+ * @param  array  $form_data
+ * @return array
  */
-function formatMessageToRecipient($form_data) {
+function formatMessageToRecipient($form_data, $recipient) {
     $headers  = "MIME-Version: 1.0\r\n";
 
     $message  = str_replace("\n.", "\n..", $form_data['message']);
@@ -90,24 +93,35 @@ function formatMessageToRecipient($form_data) {
 /**
  * Sending the mail to Recipient and Sender
  *
- * @param array  $form_data
- * @param string $sender
- * @param string $recipient
+ * @param  array  $form_data
+ * @param  string $sender
+ * @param  string $recipient
+ * @return boolean
  */
 function sendMail($sender, $recipient) {
-    mail(
-            $sender['sender'],
-            $sender['subject'],
-            $sender['message'],
-            $sender['headers']
-        );
+    $to_sender    = new PHPMailer(true);
+    $to_recipient = new PHPMailer(true);
 
-    mail(
-            $recipient['recipient'],
-            $recipient['subject'],
-            $recipient['message'],
-            $recipient['headers']
-        );
+    try {
+        $to_sender->setFrom($recipient['recipient']);
+        $to_sender->addAddress($sender['sender']);
+
+        $to_sender->Subject = $sender['subject'];
+        $to_sender->Body    = $sender['message'];
+
+        $to_recipient->setFrom($recipient['recipient']);
+        $to_recipient->addAddress($recipient['recipient']);
+
+        $to_recipient->Subject = $recipient['subject'];
+        $to_recipient->Body    = $recipient['message'];
+
+        $to_sender->send();
+        $to_recipient->send();
+
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
 }
 
 /**
@@ -126,12 +140,17 @@ $errors = validateContactForm($post_data);
 if ($errors) {
     echo json_encode(['errors' => $errors]);
 } else {
-    $email_to_sender = formatMessageToSender($post_data, $from_email);
-    $email_to_recipient = formatMessageToRecipient($post_data);
+    $email_to_sender = formatMessageToSender($post_data);
+    $email_to_recipient = formatMessageToRecipient($post_data, $from_email);
 
     if ($environment === 'PRODUCTION') {
-        sendMail($email_to_sender, $email_to_recipient);
+        if (!sendMail($email_to_sender, $email_to_recipient)) {
+            echo json_encode(['fail' => true]);
+        } else {
+            echo json_encode(['success' => true]);
+        }
+    } else {
+        echo json_encode(['success' => true]);
     }
 
-    echo json_encode(['success' => true]);
 }
