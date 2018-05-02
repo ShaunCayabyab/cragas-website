@@ -24,3 +24,7 @@ mkdir public/build
 //run browser-sync
 gulp watch
 ```
+
+## Environment Variables
+
+Use `env.example.php` as a template to create `php/env.php`.
