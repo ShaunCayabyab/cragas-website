@@ -131,7 +131,7 @@ class Mailer {
             $to_recipient->Body    = $recipient['message'];
 
             $to_sender->send();
-            //$to_recipient->send();
+            $to_recipient->send();
 
             return true;
         } catch (Exception $e) {
