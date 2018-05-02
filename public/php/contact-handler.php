@@ -178,7 +178,7 @@ if ($errors) {
     $email_to_sender    = $mailer->formatMessageToSender($post_data);
     $email_to_recipient = $mailer->formatMessageToRecipient($post_data);
 
-    if ($environment === 'PRODUCTION') {
+    if ($ENVIRONMENT === 'PRODUCTION') {
         $sending_mail = $mailer->sendMail($email_to_sender, $email_to_recipient);
 
         if ($sending_mail instanceof Exception) {
