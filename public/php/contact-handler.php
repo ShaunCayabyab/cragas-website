@@ -11,10 +11,12 @@ require '../php/env.php';
  */
 class Mailer {
 
+    private $environment;
     private $mail_authenticator;
     private $recipient;
 
-    function __construct($authenticator, $recipient_data) {
+    function __construct($environment, $authenticator, $recipient_data) {
+        $this->environment        = $environment;
         $this->mail_authenticator = $authenticator;
         $this->recipient          = $recipient_data;
     }
@@ -143,7 +145,7 @@ class Mailer {
      * @return PHPMailer
      */
     protected function setMailAuthentication(PHPMailer $mail) {
-        $mail->SMTPDebug  = 2;
+        $mail->SMTPDebug  = ('PRODUCTION' === $this->environment) ? 0 : 2;
         $mail->isSMTP();
         $mail->Host       = $this->mail_authenticator['host'];
         $mail->SMTPAuth   = true;
@@ -167,7 +169,7 @@ $post_data = [
     'message' => $_POST['message'],
 ];
 
-$mailer = new Mailer($MAIL_CLIENT_AUTHENTICATOR, $FROM_EMAIL);
+$mailer = new Mailer($ENVIRONMENT, $MAIL_CLIENT_AUTHENTICATOR, $FROM_EMAIL);
 $errors = $mailer->validateContactForm($post_data);
 
 if ($errors) {

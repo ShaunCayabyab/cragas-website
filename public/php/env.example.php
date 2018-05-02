@@ -1,6 +1,7 @@
 <?php
 
-$environment = 'LOCAL';
+$ENVIRONMENT = 'LOCAL';
+
 $FROM_EMAIL  = [
     'name'  => '[name for mailer]',
     'email' => '[email for mailer]',
