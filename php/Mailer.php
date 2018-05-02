@@ -51,6 +51,10 @@ class Mailer {
         if (!preg_match($string_exp, $form_data['name'])) {
             $errors[] = 'Please submit a Name with only letters, numbers, and spaces.';
         }
+
+        if (strlen($form_data['name']) > 30) {
+            $errors[] = 'Please keep the Name under 30 characters.';
+        }
         
         if (!filter_var($form_data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'The Email Address you entered does not appear to be valid.';
@@ -58,6 +62,10 @@ class Mailer {
 
         if (!preg_match($string_exp, $form_data['subject']) || (strlen($form_data['subject']) < 2)) {
             $errors[] = 'Please submit a Subject of more than 2 characters with only letters, numbers, and spaces.';
+        }
+
+        if (strlen($form_data['subject']) > 50) {
+            $errors[] = 'Please keep the Subject under 50 characters.';
         }
 
         if (strlen($form_data['message']) < 2) {
@@ -73,9 +81,7 @@ class Mailer {
      * @param  array  $form_data
      * @return array
      */
-    public function formatMessageToSender($form_data) {
-        $headers  = "MIME-Version: 1.0\r\n";
-
+    private function formatMessageToSender($form_data) {
         $message  = str_replace("\n.", "\n..", $form_data['message']);
 
         $email    = "Hi " . $form_data['name'] . ", \n \n";
@@ -88,7 +94,6 @@ class Mailer {
 
 
         return [
-            'headers'    => $headers,
             'sender'     => $form_data['email'],
             'subject'    => 'Message sent: ' . $form_data['subject'],
             'message'    => $email,
@@ -101,9 +106,7 @@ class Mailer {
      * @param  array  $form_data
      * @return array
      */
-    public function formatMessageToRecipient($form_data) {
-        $headers  = "MIME-Version: 1.0\r\n";
-
+    private function formatMessageToRecipient($form_data) {
         $message  = str_replace("\n.", "\n..", $form_data['message']);
 
         $email    = "New message from " . $form_data['name'] . " (via connor-ragas.com): \n\n";
@@ -111,7 +114,6 @@ class Mailer {
         $email   .= $message . "\n";
 
         return [
-            'headers'    => $headers,
             'recipient'  => $this->recipient['email'],
             'subject'    => 'New Contact Message: ' . $form_data['subject'],
             'message'    => $email,
@@ -121,11 +123,13 @@ class Mailer {
     /**
      * Sending the mail to Recipient and Sender
      *
-     * @param  array   $sender
-     * @param  array   $recipient
-     * @return boolean
+     * @param  array   $form_data
+     * @return JSON
      */
-    public function sendMail($sender, $recipient) {
+    public function sendMail($form_data) {
+        $sender    = $this->formatMessageToSender($form_data);
+        $recipient = $this->formatMessageToRecipient($form_data);
+
         $to_sender    = $this->setMailAuthentication(new PHPMailer(true));
         $to_recipient = $this->setMailAuthentication(new PHPMailer(true));
 
@@ -142,12 +146,14 @@ class Mailer {
             $to_recipient->Subject = $recipient['subject'];
             $to_recipient->Body    = $recipient['message'];
 
-            $to_sender->send();
-            $to_recipient->send();
+            if ('PRODUCTION' === $this->environment) {
+                $to_sender->send();
+                $to_recipient->send();
+            }
 
-            return true;
+            return json_encode(['success' => true]);
         } catch (Exception $e) {
-            return $e;
+            return ('PRODUCTION' === $this->environment) ? json_encode(['fail' => false]) : json_encode(['fail' => $e]);
         }
     }
 

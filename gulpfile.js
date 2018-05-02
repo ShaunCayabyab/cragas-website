@@ -20,7 +20,7 @@ var
     php          = require('gulp-connect-php'),
 
     // development mode?
-    devBuild     = (process.env.NODE_ENV !== 'production'),
+    devBuild     = (process.env.NODE_ENV !== 'PRODUCTION'),
 
     folder       = {
         src:   'public/src/',
@@ -108,6 +108,11 @@ gulp.task('browser-sync', ['php'], function () {
         notify: false,
     });
 });
+
+/**
+ * Build task
+ */
+gulp.task('build', ['js', 'css', 'images']);
 
 /**
  * Gulp watch listener

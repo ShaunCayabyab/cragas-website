@@ -9,6 +9,7 @@ $(document).ready(function () {
         }
 
         $('input, textarea, button').prop('disabled', true);
+        $('#submit').html('Processing...');
 
         $.ajax({
             url     : './php/contact-handler.php',
@@ -38,10 +39,17 @@ $(document).ready(function () {
                 });
             } else if ('fail' in data) {
                 failMessage($modal_box);
+
+                if (data['fail'] !== false) {
+                    console.warn(data);
+                }
             }
         })
         .fail(function (data) {
             failMessage($modal_box);
+        })
+        .always(() => {
+            $('#submit').html('Submit');
         });
     });
 

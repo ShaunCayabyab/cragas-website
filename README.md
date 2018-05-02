@@ -21,7 +21,7 @@ npm install
 composer install
 mkdir public/build
 
-//run browser-sync
+gulp build
 gulp watch
 ```
 
