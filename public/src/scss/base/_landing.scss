@@ -154,32 +154,123 @@ footer {
     left: 50%;
     bottom: 2%;
     display: inline-block;
-    width: 100%;
+    width: 90% !important;
     text-align: center;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 
-    .short-bio {
-        width: 70%;
-        margin-left: 15%;
-        opacity: 0.8;
-
-        @include respond-to($breakpoint-x-small - 1, 'max-height') {
-            display: none;
-        }
-        @include respond-to($breakpoint-x-small - 1, 'max-width') {
-            font-size: 0.8rem;
-        }
-        @include breakpoint($breakpoint-small, 'width', (
+    .footer-left {
+        @include breakpoint($breakpoint-med, 'width', (
                 min: (
-                    margin-bottom: 100px
+                    float: left,
+                    width: 50%
                 ),
                 max: (
-                    font-size: 0.8rem,
-                    margin-bottom: 50px
+                    display: none
                 )
             ))
+
+        .works-thumbnails {
+            width: 100%;
+            min-width: 215px;
+            max-width: 325px;
+            margin: 0 auto;
+            text-align: center;
+
+            .thumbnail {
+                display: inline-block;
+                width: 215px;
+                height: 150px;
+                margin: 0 0.5%;
+                cursor: pointer;
+                opacity: 0.6;
+
+                -webkit-transition: opacity 0.2s;
+                transition: opacity 0.2s;
+
+                .thumbnail-image {
+                    width: 100%;
+                    height: 60%;
+                    background-image: linear-gradient(135deg,#e6846e,#846170);
+
+                    img {
+                        max-height: 60%;
+                        width: auto;
+                        margin-top: 10%;
+                    }
+                }
+
+                .thumbnail-title {
+                    @include roboto-condensed;
+                    width: 100%;
+                    height: 40%;
+                    background-color: white;
+
+                    p {
+                        color: $content-pane-bg;
+                    }
+
+                    .title {
+                        font-size: 1.2rem;
+                    }
+
+                    .subtitle {
+                        font-size: 0.9rem;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+            .thumbnail:hover {
+                opacity: 1;
+            }
+        }
     }
+
+    .footer-right {
+        @include breakpoint($breakpoint-med, 'width', (
+                min: (
+                    float: right,
+                    max-width: 50%
+                ),
+                max: (
+                    max-width: 100%,
+                    text-align: center,
+                    margin-left: auto,
+                    margin-right: auto
+                )
+            ))
+
+        .short-bio {
+            width: 70%;
+            margin-top: 10%;
+            margin-left: 15%;
+            opacity: 0.8;
+
+            @include respond-to($breakpoint-x-small - 1, 'max-height') {
+                display: none;
+            }
+            @include respond-to($breakpoint-x-small - 1, 'max-width') {
+                font-size: 0.8rem;
+            }
+            @include breakpoint($breakpoint-small, 'width', (
+                    min: (
+                        margin-bottom: 100px
+                    ),
+                    max: (
+                        font-size: 0.8rem,
+                        margin-bottom: 50px
+                    )
+                ))
+        }
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
 
     .social-icons {
         height: 20px;
