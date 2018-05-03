@@ -3,13 +3,11 @@ Portfolio site for Connor Ragas
 
 ## Dependencies
 
-* PHP 7.1 (once back-end is developed)
-* Composer (latest)
-* NPM (latest)
+* PHP 7.1
 * Gulp (latest)
-* BrowserSync (latest)
 * jQuery (3.3.1)
-* Remodal (latest)
+* Remodal (1.1.1)
+* Slick (1.8.0)
 * PHPMailer (latest)
 
 ## Installation & Running (front-end development)
@@ -27,4 +25,4 @@ gulp watch
 
 ## Environment Variables
 
-Use `env.example.php` as a template to create `php/env.php`.
+Use `php/env.example.php` as a template to create `php/env.php`.
