@@ -13,6 +13,7 @@ class Mailer {
 
     private $environment;
     private $mail_authenticator;
+    private $auto_sender;
     private $recipient;
 
     /**
@@ -20,6 +21,11 @@ class Mailer {
      */
     function __construct() {
         $this->environment = getenv("ENVIRONMENT");
+
+        $this->auto_sender = [
+            'name'  => getenv("AUTO_MAIL_NAME"),
+            'email' => getenv("AUTO_MAIL_EMAIL"),
+        ];
 
         $this->recipient = [
             'name'  => getenv("RECIPIENT_NAME"),
@@ -84,7 +90,8 @@ class Mailer {
     private function formatMessageToSender($form_data) {
         $message  = str_replace("\n.", "\n..", $form_data['message']);
 
-        $email    = "Hi " . $form_data['name'] . ", \n \n";
+        $email    = "(This email address is from an automated system. Any mail send to this address will not be received.) \n \n";
+        $email   .= "Hi " . $form_data['name'] . ", \n \n";
         $email   .= "Your message has been received - thanks! I will be taking a look at it shortly.\n \n";
         $email   .= "Message sent: \n \n";
         $email   .= "---------- \n";
@@ -134,13 +141,13 @@ class Mailer {
         $to_recipient = $this->setMailAuthentication(new PHPMailer(true));
 
         try {
-            $to_sender->setFrom($this->recipient['email'], $this->recipient['name']);
+            $to_sender->setFrom($this->auto_sender['email'], $this->auto_sender['name']);
             $to_sender->addAddress($sender['sender']);
 
             $to_sender->Subject = $sender['subject'];
             $to_sender->Body    = $sender['message'];
 
-            $to_recipient->setFrom($this->recipient['email'], $this->recipient['name']);
+            $to_recipient->setFrom($this->auto_sender['email'], $this->auto_sender['name']);
             $to_recipient->addAddress($recipient['recipient']);
 
             $to_recipient->Subject = $recipient['subject'];

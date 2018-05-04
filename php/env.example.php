@@ -6,6 +6,12 @@
 $ENVIRONMENT          = 'LOCAL';
 
 /**
+ * Automated mailer
+ */
+$AUTO_MAIL_NAME       = '';
+$AUTO_MAIL_EMAIL      = '';
+
+/**
  * The sendee for outgoing mail
  */
 $RECIPIENT_NAME       = '';
@@ -20,6 +26,8 @@ $MAIL_CLIENT_PASSWORD = '';
 $MAIL_CLIENT_OUTGOING = 587;
 
 putenv("ENVIRONMENT=$ENVIRONMENT");
+putenv("AUTO_MAIL_NAME=$AUTO_MAIL_NAME");
+putenv("AUTO_MAIL_EMAIL=$AUTO_MAIL_EMAIL");
 putenv("RECIPIENT_NAME=$RECIPIENT_NAME");
 putenv("RECIPIENT_EMAIL=$RECIPIENT_EMAIL");
 putenv("MAIL_CLIENT_HOST=$MAIL_CLIENT_HOST");
