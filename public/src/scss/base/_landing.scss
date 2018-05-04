@@ -1,6 +1,10 @@
 $landing-bg: url(../img/landing-hero.jpg);
 $landing-bg-landscape: url(../img/landing.jpg);
 
+html {
+    background-color: black;
+}
+
 .landing-hero {
     @include force-full;
 
