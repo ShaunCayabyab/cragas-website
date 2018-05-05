@@ -1,0 +1,104 @@
+{% extends 'base.twig.html' %}
+
+{% block title %}Credits{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="build/css/credits.css">
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block nav %}
+    {% set active = 'works' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header_title %}CREDITS{% endblock %}
+
+{% block content %}
+    <h3 class="credits-category">Media</h3>
+    <ul class="credits-list">
+        <li class="credits-item">
+            <span class="item-title">Chuck Connelly Documentary (2018)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Dir. Ben Schartw</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">Cinadon Stream Theme (2018)</span>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">Fatal Attraction (2018)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Dir. Bob Klein</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">The Big Banana (2017)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Dir. Bob Klein</i>
+                </li>
+                <li class="subtitle-item">
+                    <i>Winner of the Audience Award - 48 Hour Film Festival - Washington DC</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">Sounding Surf Documentary (2017)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Dir. Bob Klein</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">The Cook Book (2017)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Dir. Bob Klein</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">The Last Piece (2015)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Dir. Aiden Ettlinger</i>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <h3 class="credits-category">Composition</h3>
+    <ul class="credits-list">
+        <li class="credits-item">
+            <span class="item-title">Race Point Light House (2018)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Orchestral</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">All is Lost in the Changing Tides (2015)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Multi percussion and brass</i>
+                </li>
+            </ul>
+        </li>
+        <li class="credits-item">
+            <span class="item-title">Trek (2015)</span>
+            <ul class="item-subtitles">
+                <li class="subtitle-item">
+                    <i>Clarinet with classical guitar trio Multi Movement piece</i>
+                </li>
+            </ul>
+        </li>
+    </ul>
+{% endblock %}

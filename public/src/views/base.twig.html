@@ -10,69 +10,72 @@
         <meta name="description" content="Connor Ragas - Composer & Guitarist">
     </head>
     <body>
-        <div class="content-pane">
-            <div class="top-nav">
-                <div class="nav-left">
-                    <div class="cragas-logo">
-                        <a href="./">
-                            <img src="build/img/common/cragas-logo.png" alt="Connor Ragas - Composer and Guitarist" />
-                        </a>
+        <div class="remodal-bg">
+            <div class="content-pane">
+                <div class="top-nav">
+                    <div class="nav-left">
+                        <div class="cragas-logo">
+                            <a href="./">
+                                <img src="build/img/common/cragas-logo.png" alt="Connor Ragas - Composer and Guitarist" />
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="nav-right">
-                    <nav class="template-nav">
-                        {% block nav %}
-                            <div class="nav-item {{ active is same as('about') ? 'active' : '' }}">
-                                <a href="./about.php"><b>ABOUT</b></a>
-                            </div>
-                            <div class="nav-item dropdown {{ active is same as('works') ? 'active' : '' }}">
-                                <a href="#"><b>WORKS</b></a>
-                                <div class="dropdown-content">
-                                    <div class="dropdown-item">
-                                        <a href="./credits.php"><b>CREDITS</b></a>
-                                    </div>
-                                    <div class="dropdown-item">
-                                        <a href="./media.php"><b>MEDIA</b></a>
-                                    </div>
-                                    <div class="dropdown-item">
-                                        <a href="./compositions.php"><b>COMPOSITIONS</b></a>
+                    <div class="nav-right">
+                        <nav class="template-nav">
+                            {% block nav %}
+                                <div class="nav-item {{ active is same as('about') ? 'active' : '' }}">
+                                    <a href="./about.php"><b>ABOUT</b></a>
+                                </div>
+                                <div class="nav-item dropdown {{ active is same as('works') ? 'active' : '' }}">
+                                    <a href="#"><b>WORKS</b></a>
+                                    <div class="dropdown-content">
+                                        <div class="dropdown-item">
+                                            <a href="./credits.php"><b>CREDITS</b></a>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <a href="./media.php"><b>MEDIA</b></a>
+                                        </div>
+                                        <div class="dropdown-item">
+                                            <a href="./compositions.php"><b>COMPOSITIONS</b></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="nav-item {{ active is same as('contact') ? 'active' : '' }}">
-                                <a href="./contact.php"><b>CONTACT</b></a>
-                            </div>
-                        {% endblock %}
-                    </nav>
+                                <div class="nav-item {{ active is same as('contact') ? 'active' : '' }}">
+                                    <a href="./contact.php"><b>CONTACT</b></a>
+                                </div>
+                            {% endblock %}
+                        </nav>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
+                <div class="header-title">
+                    <h1>{% block header_title %}{% endblock %}</h1>
+                </div>
+                <div class="content">
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
-            <div class="header-title">
-                <h1>{% block header_title %}{% endblock %}</h1>
-            </div>
-            <div class="content">
-                {% block content %}
-                {% endblock %}
+            <div class="footer">
+                <div class="social-icons">
+                    <span class="icon">
+                        <a href="https://www.facebook.com/connor.ragas/" target="_blank"><img src="build/img/icons/facebook-logo-white.png" alt="Faceboook" /></a>
+                    </span>
+                    <span class="icon">
+                        <a href="https://www.linkedin.com/in/connor-ragas-000a21126/" target="_blank"><img src="build/img/icons/linkedin-logo-white.png" alt="LinkedIn" /></a>
+                    </span>
+                    <span class="icon">
+                        <a href="https://www.youtube.com/channel/UCcdpUYlgASnsbfY11B0AO5A" target="_blank"><img src="build/img/icons/youtube-logo-white.png" alt="YouTube" /></a>
+                    </span>
+                    <span class="icon">
+                        <a href="https://soundcloud.com/ragacorndog/" target="_blank"><img src="build/img/icons/soundcloud-logo-white.png" alt="SoundCloud" /></a>
+                    </span>
+                    <span class="icon">
+                        <a href="https://www.imdb.com/name/nm8885707/" target="_blank"><img src="build/img/icons/imdb-logo-white.png" alt="IMDB" /></a>
+                    </span>
+                </div>
             </div>
         </div>
-        <div class="footer">
-            <div class="social-icons">
-                <span class="icon">
-                    <a href="https://www.facebook.com/connor.ragas/" target="_blank"><img src="build/img/icons/facebook-logo-white.png" alt="Faceboook" /></a>
-                </span>
-                <span class="icon">
-                    <a href="https://www.linkedin.com/in/connor-ragas-000a21126/" target="_blank"><img src="build/img/icons/linkedin-logo-white.png" alt="LinkedIn" /></a>
-                </span>
-                <span class="icon">
-                    <a href="https://www.youtube.com/channel/UCcdpUYlgASnsbfY11B0AO5A" target="_blank"><img src="build/img/icons/youtube-logo-white.png" alt="YouTube" /></a>
-                </span>
-                <span class="icon">
-                    <a href="https://soundcloud.com/ragacorndog/" target="_blank"><img src="build/img/icons/soundcloud-logo-white.png" alt="SoundCloud" /></a>
-                </span>
-                <span class="icon">
-                    <a href="https://www.imdb.com/name/nm8885707/" target="_blank"><img src="build/img/icons/imdb-logo-white.png" alt="IMDB" /></a>
-                </span>
-            </div>
-        </div>
+        {% block remodal %}{% endblock %}
     </body>
 </html>

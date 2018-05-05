@@ -1,0 +1,53 @@
+{% extends 'base.twig.html' %}
+
+{% block title %}Media Works{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="build/css/media.css">
+    <link rel="stylesheet" href="build/js/Remodal-1.1.1/dist/remodal.css">
+    <link rel="stylesheet" href="build/js/Remodal-1.1.1/dist/remodal-default-theme.css">
+{% endblock %}
+
+{% block scripts %}
+    <script src="build/js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="build/js/Remodal-1.1.1/dist/remodal.min.js"></script>
+    <script src="build/js/works-data.js"></script>
+    <script src="build/js/modal-handler.js"></script>
+{% endblock %}
+
+{% block nav %}
+    {% set active = 'works' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header_title %}WORKS - MEDIA{% endblock %}
+
+{% block content %}
+    <div class="works-thumbnails">
+        <div id="fatal-attraction" class="thumbnail" data-thumbnail-id="0">
+            <div class="thumbnail-image">
+                <img src="build/img/icons/play.png" />
+            </div>
+            <div class="thumbnail-title">
+                <p class="title"><b>Fatal Attraction</b></p>
+                <p class="subtitle"><i>I Don't Want to Fight</i></p>
+            </div>
+        </div>
+        <div id="soundings-surf-documentary" class="thumbnail" data-thumbnail-id="1">
+            <div class="thumbnail-image">
+                <img src="build/img/icons/play.png" />
+            </div>
+            <div class="thumbnail-title">
+                <p class="title"><b>Soundings Surf Documentary</b></p>
+                <p class="subtitle"><i>Dream Job</i></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block remodal %}
+    <div class="remodal" data-remodal-id="modal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <div class="content"></div>
+    </div>
+{% endblock %}

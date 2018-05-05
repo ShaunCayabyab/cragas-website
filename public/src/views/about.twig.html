@@ -3,21 +3,21 @@
 {% block title %}About{% endblock %}
 
 {% block styles %}
-	<link rel="stylesheet" href="build/css/about.css">
+    <link rel="stylesheet" href="build/css/about.css">
 {% endblock %}
 
 {% block scripts %}
 {% endblock %}
 
 {% block nav %}
-	{% set active = 'about' %}
-	{{ parent() }}
+    {% set active = 'about' %}
+    {{ parent() }}
 {% endblock %}
 
 {% block header_title %}ABOUT{% endblock %}
 
 {% block content %}
-	<div class="headshot">
+    <div class="headshot">
         <img src="build/img/headshot-01.jpg" />
     </div>
     <div class="bio">
