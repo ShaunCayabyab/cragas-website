@@ -4,11 +4,12 @@ Portfolio site for Connor Ragas
 ## Dependencies
 
 * PHP 7.1
+* Twig (^2.0)
+* PHPMailer (latest)
 * Gulp (latest)
 * jQuery (3.3.1)
 * Remodal (1.1.1)
 * Slick (1.8.0)
-* PHPMailer (latest)
 
 ## Installation & Running (front-end development)
 
