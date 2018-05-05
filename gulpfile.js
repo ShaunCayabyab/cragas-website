@@ -86,6 +86,17 @@ gulp.task('css', ['images'], function () {
         .pipe(browser_sync.stream());
 });
 
+gulp.task('twig', function () {
+    let templates = gulp.src(folder.src + 'views/**/*');
+
+    // minify production code
+    if (!devBuild) {
+        templates = templates.pipe(htmlclean());
+    }
+
+    return templates.pipe(gulp.dest(folder.build + 'views/'));
+});
+
 /**
  * PHP server task
  */
@@ -112,7 +123,7 @@ gulp.task('browser-sync', ['php'], function () {
 /**
  * Build task
  */
-gulp.task('build', ['js', 'css', 'images']);
+gulp.task('build', ['js', 'css', 'images', 'twig']);
 
 /**
  * Gulp watch listener
@@ -121,7 +132,8 @@ gulp.task('watch', ['browser-sync'], function () {
     gulp.watch(folder.src + 'js/**/*', ['js']);
     gulp.watch(folder.src + 'scss/**/*', ['css']);
     gulp.watch(folder.src + 'img/**/*', ['images']);
-    gulp.watch(['public/php/*.php'], browser_sync.reload);
+    gulp.watch(['public/php/*.php', 'php/*.php'], browser_sync.reload);
+    gulp.watch(folder.src + 'views/**/*', ['twig']);
 
     gulp.watch('public/*.html')
         .on('change', browser_sync.reload);
