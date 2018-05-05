@@ -90,7 +90,7 @@ class Mailer {
     private function formatMessageToSender($form_data) {
         $message  = str_replace("\n.", "\n..", $form_data['message']);
 
-        $email    = "(This email address is from an automated system. Any mail send to this address will not be received.) \n \n";
+        $email    = "(This email address is from an automated system. Any mail sent to this address will not be received.) \n \n";
         $email   .= "Hi " . $form_data['name'] . ", \n \n";
         $email   .= "Your message has been received - thanks! I will be taking a look at it shortly.\n \n";
         $email   .= "Message sent: \n \n";
@@ -116,9 +116,11 @@ class Mailer {
     private function formatMessageToRecipient($form_data) {
         $message  = str_replace("\n.", "\n..", $form_data['message']);
 
-        $email    = "New message from " . $form_data['name'] . " (via connor-ragas.com): \n\n";
+        $email    = "New message from " . $form_data['name'] . " (" . $form_data['email'] . "): \n\n";
         $email   .= "---------- \n";
         $email   .= $message . "\n";
+        $email   .= "---------- \n";
+        $email   .= "(To continue this conversation, please create a new email chain with the given email address above)";
 
         return [
             'recipient'  => $this->recipient['email'],
