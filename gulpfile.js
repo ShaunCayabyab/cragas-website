@@ -89,11 +89,6 @@ gulp.task('css', ['images'], function () {
 gulp.task('twig', function () {
     let templates = gulp.src(folder.src + 'views/**/*');
 
-    // minify production code
-    if (!devBuild) {
-        templates = templates.pipe(htmlclean());
-    }
-
     return templates.pipe(gulp.dest(folder.build + 'views/'));
 });
 

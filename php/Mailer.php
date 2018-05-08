@@ -155,14 +155,16 @@ class Mailer {
             $to_recipient->Subject = $recipient['subject'];
             $to_recipient->Body    = $recipient['message'];
 
-            if ('PRODUCTION' === $this->environment) {
-                $to_sender->send();
-                $to_recipient->send();
-            }
+            $to_sender->send();
+            $to_recipient->send();
 
-            return json_encode(['success' => true]);
+            return json_encode([
+                'success' => true
+            ]);
         } catch (Exception $e) {
-            return ('PRODUCTION' === $this->environment) ? json_encode(['fail' => false]) : json_encode(['fail' => $e]);
+            return json_encode([
+                'fail' => ('PRODUCTION' === $this->environment) ?: $e,
+            ]);
         }
     }
 
@@ -172,7 +174,7 @@ class Mailer {
      * @return PHPMailer
      */
     private function setMailAuthentication(PHPMailer $mail) {
-        $mail->SMTPDebug  = ('PRODUCTION' === $this->environment) ? 0 : 2;
+        $mail->SMTPDebug  = ('PRODUCTION' === $this->environment || 'STAGING' === $this->environment) ? 0 : 2;
         $mail->isSMTP();
         $mail->Host       = $this->mail_authenticator['host'];
         $mail->SMTPAuth   = true;
