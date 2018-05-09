@@ -107,8 +107,25 @@ gulp.task('php', function () {
  * BrowserSync task
  */
 gulp.task('browser-sync', ['php'], function () {
+    const routes = {
+        '/about'       : '/about.php',
+        '/credits'     : '/credits.php',
+        '/media'       : '/media.php',
+        '/compositions': '/compositions.php',
+        '/contact'     : '/contact.php',
+    };
+
     browser_sync({
-        proxy : '127.0.0.1:8010',
+        proxy : {
+            target: '127.0.0.1:8010',
+            proxyReq: [
+                (proxyReq) => {
+                    if (proxyReq.path in routes) {
+                        proxyReq.path = routes[proxyReq.path];
+                    }
+                }
+            ],
+        },
         port  : 8080,
         open  : true,
         notify: false,
