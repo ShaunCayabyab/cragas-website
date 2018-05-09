@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     function failMessage($modal_box) {
         $('input, textarea, button').prop('disabled', false);
-        $modal_box.html("<h2>Oops! We couldn't send your message.</h2><p>Try sending the message again, or email contact@connor-ragas.com directly.</p>");
+        $modal_box.html("<h2>Oops! We couldn't send your message.</h2><p>Try sending the message again, or email connor.ragas@gmail.com directly.<br><br>If it is an technical issue with the website and consistently occurs, please contact the site developer: contact@shaun-cayabyab.com.</p>");
 
         let $remodal = $("[data-remodal-id='errors']").remodal();
         $remodal.open();
