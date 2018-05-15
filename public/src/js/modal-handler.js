@@ -8,7 +8,7 @@ function setThumbnailListeners(data_selector = 'media') {
         $modal_box.attr('data-remodal-id', thumbnail_id);
         $modal_box.find('.content')
             .first()
-            .html(data);
+            .html(`<div class="video-responsive">${data}</div>`);
 
         let $remodal = $(`[data-remodal-id=${thumbnail_id}]`).remodal();
         $remodal.open();
