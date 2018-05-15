@@ -1,0 +1,14 @@
+{% extends 'landing.twig.html' %}
+
+{% block featured_works %}
+    {% for work_id, work in featured_works %}
+        <div id="{{ work_id }}" class="thumbnail" data-thumbnail-id="{{ work_id }}">
+            <div class="thumbnail-image">
+            </div>
+            <div class="thumbnail-title">
+                <p class="title"><b>{{ work.title }}</b></p>
+                <p class="subtitle"><i>{{ work.subtitle }}</i></p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

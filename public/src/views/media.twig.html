@@ -13,6 +13,11 @@
     <script src="build/js/Remodal-1.1.1/dist/remodal.min.js"></script>
     <script src="build/js/works-data.js"></script>
     <script src="build/js/modal-handler.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setThumbnailListeners('media');
+        });
+    </script>
 {% endblock %}
 
 {% block nav %}
@@ -24,24 +29,16 @@
 
 {% block content %}
     <div class="works-thumbnails">
-        <div id="fatal-attraction" class="thumbnail" data-thumbnail-id="0">
-            <div class="thumbnail-image">
-                <img src="build/img/icons/play.png" />
+        {% for work_id, work in media_works %}
+            <div id="{{ work_id }}" class="thumbnail" data-thumbnail-id="{{ work_id }}">
+                <div class="thumbnail-image" style="{% if work.thumbnail %} background-image: url({{ work.thumbnail }}); {% endif %}">
+                </div>
+                <div class="thumbnail-title">
+                    <p class="title"><b>{{ work.title }}</b></p>
+                    <p class="subtitle"><i>{{ work.subtitle }}</i></p>
+                </div>
             </div>
-            <div class="thumbnail-title">
-                <p class="title"><b>Fatal Attraction</b></p>
-                <p class="subtitle"><i>I Don't Want to Fight</i></p>
-            </div>
-        </div>
-        <div id="soundings-surf-documentary" class="thumbnail" data-thumbnail-id="1">
-            <div class="thumbnail-image">
-                <img src="build/img/icons/play.png" />
-            </div>
-            <div class="thumbnail-title">
-                <p class="title"><b>Soundings Surf Documentary</b></p>
-                <p class="subtitle"><i>Dream Job</i></p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
