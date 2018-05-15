@@ -5,6 +5,11 @@ require 'php/twig-env.php';
 $template = $twig->load('media.twig.html');
 echo $template->render([
 	'media_works' => [
+		'fatal-attraction' => [
+            "title"     => 'Fatal Attraction',
+            'subtitle'  => '',
+            "thumbnail" => null,
+        ],
 		'soundings-surf-documentary-video' => [
             "title"     => 'Soundings Surf Documentary',
             'subtitle'  => 'Video',
@@ -23,11 +28,6 @@ echo $template->render([
         'the-cookbook' => [
             "title"     => 'The Cookbook',
             'subtitle'  => 'Playlist',
-            "thumbnail" => null,
-        ],
-        'fatal-attraction' => [
-            "title"     => 'Fatal Attraction',
-            'subtitle'  => '',
             "thumbnail" => null,
         ],
 	]
